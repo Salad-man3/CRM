@@ -1,0 +1,157 @@
+Table CartItems {
+
+ id integer [primary key]
+
+ item integer
+
+ additional_options text
+
+ profile CHAR(36)
+
+ name varchar(255)
+
+ price DECIMAL(10,2)
+
+ order_id integer
+
+ created_at timestamp
+
+ updated_at timestamp
+
+}
+
+Table Items {
+
+ id integer [primary key]
+
+ product integer
+
+ feature text
+
+ price DECIMAL(10,2)
+
+ quantity integer
+
+ created_at timestamp
+
+ updated_at timestamp
+
+}
+
+Table Orders {
+
+ id integer [primary key]
+
+ status varchar(255)
+
+ subtotal DECIMAL(10,2)
+
+ tax DECIMAL(10,2)
+
+ tax_rate DECIMAL(10,2)
+
+ shopping_fee DECIMAL(10,2)
+
+ shipping_to integer
+
+ total DECIMAL(10,2)
+
+ shipping_address text
+
+ extra_shipping_info text
+
+ profile CHAR(36)
+
+ created_at timestamp
+
+ updated_at timestamp
+
+}
+
+Table Products {
+
+ id integer [primary key]
+
+ name varchar(255)
+
+ release_date date
+
+ description text
+
+ price DECIMAL(10,2)
+
+ collection integer
+
+ thumbnail varchar(255)
+
+ preview varchar(255)
+
+ created_at timestamp
+
+ updated_at timestamp
+
+}
+
+Table Governorates {
+
+ id integer [primary key]
+
+ name varchar(255)
+
+ fee DECIMAL(10,2)
+
+ enabled TINYINT(1)
+
+ created_at timestamp
+
+ updated_at timestamp
+
+}
+
+Table Collections {
+
+ id integer [primary key]
+
+ name text
+
+ description text
+
+ season integer
+
+ created_at timestamp
+
+ updated_at timestamp
+
+}
+
+Table Profiles {
+
+ id integer [primary key]
+
+ username varchar(255) unique
+
+ full_name varchar(255)
+
+ avatar_url varchar(255)
+
+  role enum('user', 'admin')
+
+ created_at timestamp
+
+ updated_at timestamp
+
+}
+
+Ref: CartItems.item > Items.id
+
+Ref: CartItems.profile > Profiles.id
+
+Ref: Items.product > Products.id
+
+Ref: Products.collection > Collections.id
+
+Ref: CartItems.order_id > Orders.id
+
+Ref: Orders.shipping_to > Governorates.id
+
+Ref: Orders.profile > Profiles.id
